@@ -14,13 +14,6 @@ hide: true
 #### 2
 ##### 1
 
-	```
-{
-  "firstName": "Cyrus",
-  "lastName": "Zhang",
-  "age": 15
-}
-```
 
 Hi! My name is [Cyrus].
 
