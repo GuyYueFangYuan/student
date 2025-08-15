@@ -30,6 +30,8 @@ Hi! My name is [Cyrus].
 
 ### Development Environment
 
+<img src="https://cdn.britannica.com/26/176226-050-A6C274BC/white-cumulus-clouds-in-a-summer-sky.jpg">
+
 > Coding starts with tools, explore these tools and procedures with a click.
 
 <a href="https://github.com/Open-Coding-Society/student">
