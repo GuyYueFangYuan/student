@@ -14,9 +14,6 @@ hide: true
 #### 2
 ##### 1
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
- <i class="fa fa-pencil"></i>
 
 Hi! My name is [Cyrus].
 
