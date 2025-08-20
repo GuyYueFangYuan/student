@@ -15,9 +15,9 @@ hide: true
 ##### 1
 
 
-:joy:
-:joy:
-:joy:
+:smirk:
+:smirk:
+:smirk:
 
 ![Hi!](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2R3ZGpnZnVnajgxc3lxd29zYTZtYTJveWl1YW83OWwzeXR3cmU3biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ei4juXBXLJuc2gBCgg/giphy.gif)
 
