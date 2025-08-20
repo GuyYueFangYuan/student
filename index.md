@@ -15,7 +15,9 @@ hide: true
 ##### 1
 
 
-Hi! My name is [Cyrus].
+
+
+Hi! My name is [Cyrus]
 
 | Role         | Name     | Repo Location                       | Stream                | Repo Name |
 |--------------|----------|-------------------------------------|-----------------------|-----------|
@@ -67,5 +69,5 @@ Hi! My name is [Cyrus].
 
 <p style="color: #2A7DB1;">Open Coding Society: <a href="https://opencodingsociety.com" style="color: #2A7DB1; text-decoration: underline;">Socials</a></p>
 
-~~LianTian~~
- **DaAi**
+~~Blue~~
+ **Red**
