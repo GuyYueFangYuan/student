@@ -19,7 +19,7 @@ hide: true
 :smirk:
 :smirk:
 
-![Hi!](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2R3ZGpnZnVnajgxc3lxd29zYTZtYTJveWl1YW83OWwzeXR3cmU3biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ei4juXBXLJuc2gBCgg/giphy.gif)
+![Hi!](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTNnNTVzZHljaG10bjlkZ2J2dnBmd2tvamZ3czF2MW12NTV0em5rMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0IGRygDt5cMP2Q0Jmu/giphy.gif)
 
 Hi! My name is [Cyrus]
 
