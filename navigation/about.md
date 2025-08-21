@@ -7,6 +7,12 @@ comments: true
 
 ## As a conversation Starter
 
+container.addEventListener('click', function(e) {
+  if (e.target.tagName === 'IMG') {
+    alert(`You clicked the flag of ${e.target.alt.replace(' Flag', '')}! 🌟 Hope you're having a great day!`);
+  }
+});
+
 
 <comment>``
 Here are some places I lived in.
@@ -128,3 +134,79 @@ Gallery of Pics, scroll to the right for more ...
   <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTl6Ynhja2xmeXdjNzBnOGU2dWZjNmtmdzRmc2x2ZW5pNHF0cG9jaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/myWd3Omj7KToQ/giphy.gif" alt="Image 4">
   <img src="<img src="https://ychef.files.bbci.co.uk/1280x720/p04nm71d.jpg" alt="Image 5">
 </div>
+
+
+<script>
+// Your existing script here...
+
+// Snow effect code below
+
+(function() {
+  // Create a canvas that fills the viewport
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.pointerEvents = 'none'; // So it doesn't block clicks
+  canvas.style.zIndex = '9999';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  const snowflakes = [];
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createSnowflake() {
+    return {
+      x: random(0, canvas.width),
+      y: random(-canvas.height, 0),
+      radius: random(1, 4),
+      speed: random(1, 3),
+      opacity: random(0.3, 0.9),
+      drift: random(-0.5, 0.5),
+    };
+  }
+
+  for (let i = 0; i < 100; i++) {
+    snowflakes.push(createSnowflake());
+  }
+
+  function updateSnowflakes() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const flake of snowflakes) {
+      flake.y += flake.speed;
+      flake.x += flake.drift;
+
+      if (flake.y > canvas.height) {
+        Object.assign(flake, createSnowflake());
+        flake.y = 0;
+      }
+
+      ctx.beginPath();
+      ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(updateSnowflakes);
+  }
+
+  updateSnowflakes();
+
+  // Resize canvas on window resize
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+})();
+</script>
+
+
+
+
+
