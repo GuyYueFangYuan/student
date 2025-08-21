@@ -1,6 +1,6 @@
 ---
 layout: post
-title: About
+title: Cyrus about me
 permalink: /about/
 comments: true
 ---
