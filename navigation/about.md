@@ -7,11 +7,8 @@ comments: true
 
 ## As a conversation Starter
 
-container.addEventListener('click', function(e) {
-  if (e.target.tagName === 'IMG') {
-    alert(`You clicked the flag of ${e.target.alt.replace(' Flag', '')}! 🌟 Hope you're having a great day!`);
-  }
-});
+alert(`You clicked the flag of ${e.target.alt.replace(' Flag', '')}! 🌟 Hope you're having a great day!`);
+
 
 
 <comment>``
@@ -137,74 +134,103 @@ Gallery of Pics, scroll to the right for more ...
 
 
 <script>
-// Your existing script here...
 
-// Snow effect code below
+  living_in_the_world.forEach(location => {
+    const gridItem = document.createElement("div");
+    gridItem.className = "grid-item";
 
-(function() {
-  // Create a canvas that fills the viewport
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.pointerEvents = 'none'; // So it doesn't block clicks
-  canvas.style.zIndex = '9999';
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  document.body.appendChild(canvas);
+    const img = document.createElement("img");
+    img.src = http_source + location.flag;
+    img.alt = location.flag + " Flag";
 
-  const ctx = canvas.getContext('2d');
-  const snowflakes = [];
+    const greeting = document.createElement("p");
+    greeting.textContent = location.greeting;
 
-  function random(min, max) {
-    return Math.random() * (max - min) + min;
-  }
+    const description = document.createElement("p");
+    description.textContent = location.description;
 
-  function createSnowflake() {
-    return {
-      x: random(0, canvas.width),
-      y: random(-canvas.height, 0),
-      radius: random(1, 4),
-      speed: random(1, 3),
-      opacity: random(0.3, 0.9),
-      drift: random(-0.5, 0.5),
-    };
-  }
+    gridItem.appendChild(img);
+    gridItem.appendChild(greeting);
+    gridItem.appendChild(description);
 
-  for (let i = 0; i < 100; i++) {
-    snowflakes.push(createSnowflake());
-  }
+    container.appendChild(gridItem);
+  });
 
-  function updateSnowflakes() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (const flake of snowflakes) {
-      flake.y += flake.speed;
-      flake.x += flake.drift;
-
-      if (flake.y > canvas.height) {
-        Object.assign(flake, createSnowflake());
-        flake.y = 0;
-      }
-
-      ctx.beginPath();
-      ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
-      ctx.fill();
+  container.addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') {
+      alert(`You clicked the flag of ${e.target.alt.replace(' Flag', '')}! 🌟 Hope you're having a great day!`);
     }
+  });
 
-    requestAnimationFrame(updateSnowflakes);
-  }
 
-  updateSnowflakes();
+  // Snow effect code
 
-  // Resize canvas on window resize
-  window.addEventListener('resize', () => {
+  (function() {
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9999';
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-  });
-})();
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    const snowflakes = [];
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createSnowflake() {
+      return {
+        x: random(0, canvas.width),
+        y: random(-canvas.height, 0),
+        radius: random(1, 4),
+        speed: random(1, 3),
+        opacity: random(0.3, 0.9),
+        drift: random(-0.5, 0.5),
+      };
+    }
+
+    for (let i = 0; i < 100; i++) {
+      snowflakes.push(createSnowflake());
+    }
+
+    function updateSnowflakes() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const flake of snowflakes) {
+        flake.y += flake.speed;
+        flake.x += flake.drift;
+
+        if (flake.y > canvas.height) {
+          Object.assign(flake, createSnowflake());
+          flake.y = 0;
+        }
+
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(updateSnowflakes);
+    }
+
+    updateSnowflakes();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  })();
+
 </script>
+
+</body>
+</html>
 
 
 
