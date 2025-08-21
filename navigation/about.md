@@ -115,7 +115,7 @@ Everything for me, as for many others, revolves around family and faith.
 
 - My mother told me that I was Chinese.
 Here is a picture of my hometown
-<img src= "https://www.globaltimes.cn/Portals/0/attachment/2025/2025-02-06/aad5cbd6-92c1-4958-8a55-6f45b07cf2bf.jpeg" alt="Ice, snow, and a winter spectacle in Harbin - Global Times">
+<img src= "https://www.globaltimes.cn/Portals/0/attachment/2025/2025-02-06/aad5cbd6-92c1-4958-8a55-6f45b07cf2bf.jpeg" alt="Home Image">
 - I'm an only child in my family, I do have a lot of cousins though. My parents lived in a small rural town in China, and later moved to Harbin. I moved to the U.S. in 4th grade. I've always wanted to get a golden retriever but my parents would never allow me to.
 
 <comment>
