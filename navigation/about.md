@@ -7,13 +7,12 @@ comments: true
 
 ## As a conversation Starter
 
-Here are some places I have lived.
+
+<comment>``
+Here are some places I lived in.
 Harbin, China
 Austin, Texas
 San Diego, California
-
-<comment>
-Flags are made using Wikipedia images
 </comment>
 
 <style>
