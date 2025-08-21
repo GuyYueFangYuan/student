@@ -127,12 +127,5 @@ Gallery of Pics, scroll to the right for more ...
   <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDVzc3FubzlobjVieXE2YnBnbzE5Nmp6cmx4eGFuNXg0OWg5aGR3cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iicDrNGWxHmDrIni6j/giphy.gif" alt="Galaxy gif">
   <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZThjbHBnMDI5dHIzemsxcjQ3OXU5bWU1enZoMHRlbXQ1OXU5c3c2ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gQJyPqc6E4xoc/giphy.gif" alt="Headphones for music">
   <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTl6Ynhja2xmeXdjNzBnOGU2dWZjNmtmdzRmc2x2ZW5pNHF0cG9jaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/myWd3Omj7KToQ/giphy.gif" alt="Image 4">
-  <img src="<img src="https://ychef.files.bbci.co.uk/1280x720/p04nm71d.jpg" alt="A surreal synchronised wave of light"/>"fireflies">
-  <img src="{{site.baseurl}}/images/about/lora_fam.jpg" alt="Image 6">
-  <img src="{{site.baseurl}}/images/about/lora_fam2.jpg" alt="Image 7">
-  <img src="{{site.baseurl}}/images/about/pj_party.jpg" alt="Image 8">
-  <img src="{{site.baseurl}}/images/about/trent_family.png" alt="Image 9">
-  <img src="{{site.baseurl}}/images/about/claire.jpg" alt="Image 10">
-  <img src="{{site.baseurl}}/images/about/grandkids.jpg" alt="Image 11">
-  <img src="{{site.baseurl}}/images/about/farm.jpg" alt="Image 12">
+  <img src="<img src="https://ychef.files.bbci.co.uk/1280x720/p04nm71d.jpg" alt="Image 5">
 </div>
