@@ -114,7 +114,9 @@ I learned a bit of Python a really long time ago and I forgot most of it already
 
 Everything for me, as for many others, revolves around family and faith.
 
-- My mother told me that I was Danish, English. and Irish, here is my researched [family tree]({{site.baseurl}}/images/about/familytree.png)
+- My mother told me that I was Chinese.
+Here is a picture of my hometown
+<img src="<img src="https://www.globaltimes.cn/Portals/0/attachment/2025/2025-02-06/aad5cbd6-92c1-4958-8a55-6f45b07cf2bf.jpeg" alt="Ice, snow, and a winter spectacle in Harbin - Global Times">
 - My family is pretty big as I have been married twice, my 1st wife passed away.  We have had 5 kids, 4 adopted by me, 1 biological.  Plus, there are three grandkids.  My name to my grandkids is Abuilito.
 - The gallery of pics has some of my family, fun, culture and faith memories.
 
