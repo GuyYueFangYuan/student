@@ -7,10 +7,6 @@ comments: true
 
 ## As a conversation Starter
 
-alert(`You clicked the flag of ${e.target.alt.replace(' Flag', '')}! 🌟 Hope you're having a great day!`);
-
-
-
 <comment>``
 Here are some places I lived in.
 Harbin, China
@@ -220,10 +216,11 @@ Gallery of Pics, scroll to the right for more ...
     });
   })();
 
+  </body>
+  </html>
+
 </script>
 
-</body>
-</html>
 
 
 
