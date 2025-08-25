@@ -154,72 +154,52 @@ Gallery of Pics, scroll to the right for more ...
 
   // Snow effect code
 
-  (function() {
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '9999';
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    document.body.appendChild(canvas);
+<!-- Snow effect -->
+<div id="snow"></div>
 
-    const ctx = canvas.getContext('2d');
-    const snowflakes = [];
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #0b1d3a; /* nice dark sky */
+    overflow: hidden;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  #snow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  .snowflake {
+    position: absolute;
+    color: white;
+    font-size: 1em;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-10px); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+</style>
 
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
-    }
+<script>
+  function createSnowflake() {
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
+    snowflake.textContent = "❄";
+    snowflake.style.left = Math.random() * window.innerWidth + "px";
+    snowflake.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    snowflake.style.fontSize = (Math.random() * 10 + 10) + "px";
+    document.getElementById("snow").appendChild(snowflake);
 
-    function createSnowflake() {
-      return {
-        x: random(0, canvas.width),
-        y: random(-canvas.height, 0),
-        radius: random(1, 4),
-        speed: random(1, 3),
-        opacity: random(0.3, 0.9),
-        drift: random(-0.5, 0.5),
-      };
-    }
-
-    for (let i = 0; i < 100; i++) {
-      snowflakes.push(createSnowflake());
-    }
-
-    function updateSnowflakes() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (const flake of snowflakes) {
-        flake.y += flake.speed;
-        flake.x += flake.drift;
-
-        if (flake.y > canvas.height) {
-          Object.assign(flake, createSnowflake());
-          flake.y = 0;
-        }
-
-        ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
-        ctx.fill();
-      }
-
-      requestAnimationFrame(updateSnowflakes);
-    }
-
-    updateSnowflakes();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  })();
-
-  </body>
-  </html>
-
-</script>
+    setTimeout(() => { snowflake.remove(); }, 5000);
+  }
+  setInterval(createSnowflake, 200);
+  
+  /script
 
 
 
