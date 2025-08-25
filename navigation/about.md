@@ -199,7 +199,7 @@ Gallery of Pics, scroll to the right for more ...
   }
   setInterval(createSnowflake, 200);
   
-  /script
+
 
 
 
