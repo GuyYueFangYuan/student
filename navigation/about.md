@@ -49,7 +49,7 @@ San Diego, California.
 
 
 /* ensure content sits above fog */
-.cultivation-platform, h2, h3, p, img { position: relative; z-index: 1; }
+.cultivation-platform, .grid-container, .image-gallery, h2, h3, p, img { position: relative; z-index: 1; }
 
 
 /* --- Cultivation platform + jade styles --- */
@@ -79,6 +79,19 @@ San Diego, California.
   40%{ box-shadow: 0 0 18px rgba(134,232,200,.75); }
   100%{ box-shadow: 0 0 0 rgba(134,232,200,0); }
 }
+
+
+/* simple grid styles */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.grid-item { text-align: center; }
+.grid-item img {
+  width: 100%; height: 100px; object-fit: contain;
+}
+.grid-item p { margin: 5px 0; }
 </style>
 
 
@@ -105,10 +118,71 @@ San Diego, California.
   <p style="font-size:.9rem; color:#0a6b52; opacity:.9; margin-top:8px; text-align:center;">
     Click the jade stone to cultivate and ascend realms.
   </p>
+
+
+  <!-- Reset button (visible HTML, not inside a <script>) -->
+  <button id="reset-cultivation" type="button" class="jade-reset" style="display:block;margin:10px auto 0;padding:6px 12px;border-radius:999px;border:1px solid #bfeee1;background:#f6fffb;color:#0a6b52;cursor:pointer;">
+    Reset Progress
+  </button>
 </div>
 
 
+<!-- Optional: simple grid container so the grid script has a target -->
+<div class="grid-container" id="grid_container"></div>
+
+
 <script>
+/* --- Fallback data so the grid + flags don't crash --- */
+window.http_source = window.http_source || "";
+window.living_in_the_world = window.living_in_the_world || [
+  { flag: "https://flagcdn.com/w320/cn.png", description: "Harbin, China", greeting: "Hello" },
+  { flag: "https://flagcdn.com/w320/us.png", description: "Austin, Texas", greeting: "Howdy!" },
+  { flag: "https://flagcdn.com/w320/us.png", description: "San Diego, California", greeting: "Hey!" }
+];
+
+
+/* --- Build the grid safely --- */
+(function(){
+  const container = document.getElementById("grid_container");
+  if(!container || !Array.isArray(window.living_in_the_world)) return;
+
+
+  window.living_in_the_world.forEach(location => {
+    const gridItem = document.createElement("div");
+    gridItem.className = "grid-item";
+
+
+    const img = document.createElement("img");
+    img.src = (window.http_source || "") + location.flag;
+    img.alt = (location.flag || "Flag") + " Flag";
+
+
+    const greeting = document.createElement("p");
+    greeting.textContent = location.greeting || "";
+
+
+    const description = document.createElement("p");
+    description.textContent = location.description || "";
+
+
+    gridItem.appendChild(img);
+    gridItem.appendChild(greeting);
+    gridItem.appendChild(description);
+    container.appendChild(gridItem);
+  });
+
+
+  container.addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') {
+      alert(`You clicked the flag of ${e.target.alt.replace(' Flag', '')}! 🌟`);
+    }
+  });
+})();
+</script>
+
+
+<script>
+/* --- Cultivation logic with increasing steps + reset --- */
 (function(){
   const REALMS = [
     "Mortal",
@@ -119,8 +193,7 @@ San Diego, California.
     "Soul Transformation",
     "Ascension"
   ];
-  // clicks needed to advance from the current realm to the next
-  const STEPS = [3, 5, 8, 12, 16, 20];
+  const STEPS = [3, 5, 8, 12, 16, 20]; // clicks needed to move to next realm
 
 
   const KEY_IDX  = "cultivation_realm_index";
@@ -130,8 +203,8 @@ San Diego, California.
   const stone = document.getElementById('jade-stone');
   const label = document.getElementById('realm-label');
   const bar   = document.getElementById('realm-bar');
-  const card  = document.getElementById('cultivation-card');
-  if(!stone || !label || !bar || !card) return;
+  const reset = document.getElementById('reset-cultivation');
+  if(!stone || !label || !bar) return;
 
 
   let idx = parseInt(localStorage.getItem(KEY_IDX) || "0", 10);
@@ -154,18 +227,14 @@ San Diego, California.
 
 
   function cultivate(){
-    if(idx >= REALMS.length-1){
-      label.textContent = REALMS[idx] + " · Achieved";
-      return;
-    }
+    if(idx >= REALMS.length-1){ label.textContent = REALMS[idx] + " · Achieved"; return; }
     sub += 1;
     const need = STEPS[idx] || 1;
     if(sub >= need){
-      idx += 1;
-      sub = 0;
+      idx += 1; sub = 0;
       localStorage.setItem(KEY_IDX, String(idx));
       localStorage.setItem(KEY_SUB, String(sub));
-    }else{
+    } else {
       localStorage.setItem(KEY_SUB, String(sub));
     }
     render();
@@ -175,151 +244,32 @@ San Diego, California.
 
 
   stone.addEventListener('click', cultivate);
+
+
+  if(reset){
+    reset.addEventListener('click', () => {
+      localStorage.removeItem(KEY_IDX);
+      localStorage.removeItem(KEY_SUB);
+      idx = 0; sub = 0;
+      render();
+      reset.textContent = 'Reset!';
+      reset.disabled = true;
+      setTimeout(() => { reset.textContent = 'Reset Progress'; reset.disabled = false; }, 700);
+    });
+  }
+
+
   render();
 })();
-<p style="font-size:.9rem; color:#0a6b52; opacity:.9; margin-top:8px; text-align:center;">
-  Click the jade stone to cultivate and ascend realms.
-</p>
-
-
-<button id="reset-cultivation" type="button" class="jade-reset">Reset Progress</button>
 </script>
 
 
 ### Journey through Life
 
 
-Here is what I did at those places
-
-
-- 🏫 Kindergarden and elementary school until 4th grade in China
-- 🏫 4th grade in Austin, Texas
-- 🎓 5th grade + middle school + 9th grade of high school in San Diego
-
-
-I learned a bit of Python a really long time ago and I forgot most of it already. I'm relearning Python right now and I want to learn about how I can apply Python in real life.
-
-
-### Culture, Family, and Fun
-
-
-Everything for me, as for many others, revolves around family and faith.
-
-
-- My mother told me that I was Chinese.
-Here is a picture of my hometown
-<img src= "https://www.globaltimes.cn/Portals/0/attachment/2025/2025-02-06/aad5cbd6-92c1-4958-8a55-6f45b07cf2bf.jpeg" alt="Home Image">
-- I'm an only child in my family, I do have a lot of cousins though. My parents lived in a small rural town in China, and later moved to Harbin. I moved to the U.S. in 4th grade. I've always wanted to get a golden retriever but my parents would never allow me to.
-
-
-<comment>
-Gallery of Pics, scroll to the right for more ...
-</comment>
-<div class="image-gallery">
-  <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDA4N3p5NmZiYzJqZGxlcTI1b2MwaDljYXJpaXcxMjhnMXV5YjI1cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BDucPOizdZ5AI/giphy.gif" alt="Snow gif">
-  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDVzc3FubzlobjVieXE2YnBnbzE5Nmp6cmx4eGFuNXg0OWg5aGR3cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iicDrNGWxHmDrIni6j/giphy.gif" alt="Galaxy gif">
-  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZThjbHBnMDI5dHIzemsxcjQ3OXU5bWU1enZoMHRlbXQ1OXU5c3c2ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gQJyPqc6E4xoc/giphy.gif" alt="Headphones for music">
-  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTl6Ynhja2xmeXdjNzBnOGU2dWZjNmtmdzRmc2x2ZW5pNHF0cG9jaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/myWd3Omj7KToQ/giphy.gif" alt="Image 4">
-  <img src="https://ychef.files.bbci.co.uk/1280x720/p04nm71d.jpg" alt="Image 5">
-</div>
 
 
 
-
-<script>
-
-
-  living_in_the_world.forEach(location => {
-    const gridItem = document.createElement("div");
-    gridItem.className = "grid-item";
-
-
-    const img = document.createElement("img");
-    img.src = http_source + location.flag;
-    img.alt = location.flag + " Flag";
-
-
-    const greeting = document.createElement("p");
-    greeting.textContent = location.greeting;
-
-
-    const description = document.createElement("p");
-    description.textContent = location.description;
-
-
-    gridItem.appendChild(img);
-    gridItem.appendChild(greeting);
-    gridItem.appendChild(description);
-
-
-    container.appendChild(gridItem);
-  });
-
-
-  container.addEventListener('click', function(e) {
-    if (e.target.tagName === 'IMG') {
-      alert(`You clicked the flag of ${e.target.alt.replace(' Flag', '')}! 🌟 Hope you're having a great day!`);
-    }
-  });
-
-
-</script>
-
-
-<script>
-(function(){
-  const REALMS = [
-    "Mortal",
-    "Qi Refinement",
-    "Foundation Establishment (Zhuji)",
-    "Core Formation (Jindan)",
-    "Nascent Soul (Yuanying)",
-    "Soul Transformation",
-    "Ascension"
-  ];
-
-
-  const KEY = "cultivation_realm_index";
-  const stone = document.getElementById('jade-stone');
-  const label = document.getElementById('realm-label');
-  const bar = document.getElementById('realm-bar');
-  const card = document.getElementById('cultivation-card');
-
-
-  if(!stone || !label || !bar || !card) return;
-
-
-  let idx = parseInt(localStorage.getItem(KEY) || "0", 10);
-  if(isNaN(idx) || idx < 0) idx = 0;
-  if(idx >= REALMS.length) idx = REALMS.length - 1;
-
-
-  function render(){
-    label.textContent = REALMS[idx];
-    const pct = (idx/(REALMS.length-1))*100;
-    bar.style.width = pct + "%";
-  }
-
-
-  function cultivate(){
-    if(idx < REALMS.length - 1){
-      idx++;
-      localStorage.setItem(KEY, String(idx));
-      render();
-      stone.classList.add('cultivate-flash');
-      setTimeout(()=>stone.classList.remove('cultivate-flash'), 650);
-    } else {
-      label.textContent = REALMS[idx] + " · Achieved";
-    }
-  }
-
-
-  stone.addEventListener('click', cultivate);
-
-
-  render();
-})();
-</script>
 
 
 
