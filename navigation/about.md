@@ -4,16 +4,82 @@ title: Cyrus about me
 permalink: /about/
 comments: true
 ---
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+
 
 ## As a conversation Starter
 
 
-<comment>``
+<!--
 Here are some places I lived in.
 Harbin, China.
 Austin, Texas.
 San Diego, California.
-</comment>
+-->
+
+
+<!-- Fog overlay (non-interactive) -->
+<div class="fog" aria-hidden="true">
+  <div class="fog-layer l1"></div>
+  <div class="fog-layer l2"></div>
+  <div class="fog-layer l3"></div>
+</div>
+
+
+<style>
+/* --- Gentle drifting fog --- */
+.fog{ position:fixed; inset:0; pointer-events:none; z-index:0; }
+.fog-layer{
+  position:fixed; inset:0; pointer-events:none;
+  opacity:.22; filter: blur(10px) saturate(1.05);
+  background:
+    radial-gradient(220px 130px at 12% 20%, rgba(255,255,255,.11), transparent 60%),
+    radial-gradient(280px 160px at 65% 8%,  rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(260px 140px at 82% 58%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(240px 140px at 28% 82%, rgba(255,255,255,.07), transparent 60%);
+  animation: fogSlide 120s linear infinite, fogBob 20s ease-in-out infinite alternate;
+  mix-blend-mode: normal;
+}
+.fog-layer.l2{ opacity:.18; filter: blur(16px); animation-duration: 160s, 28s; transform: scale(1.05); }
+.fog-layer.l3{ opacity:.14; filter: blur(20px); animation-duration: 220s, 36s; transform: scale(1.1); }
+
+
+@keyframes fogSlide { 0%{transform:translateX(-6%)} 50%{transform:translateX(6%)} 100%{transform:translateX(-6%)} }
+@keyframes fogBob   { 0%{transform:translateY(0)} 100%{transform:translateY(-2%)} }
+
+
+/* ensure content sits above fog */
+.cultivation-platform, h2, h3, p, img { position: relative; z-index: 1; }
+
+
+/* --- Cultivation platform + jade styles --- */
+.jade-card{
+  border: 1.5px solid #cdeee4;
+  border-radius: 10px;
+  padding: 12px;
+  background: linear-gradient(180deg, rgba(240,255,250,.8), rgba(255,255,255,.7));
+}
+.cultivation-platform{ text-align:center; padding:16px; }
+
+
+/* glowing jade stone */
+#jade-stone{
+  width:100px; height:100px; margin:0 auto; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #9ef5d5, #4fc4a1 70%, #2a7a63 100%);
+  box-shadow: 0 0 20px rgba(134,232,200,.7), 0 0 40px rgba(134,232,200,.4);
+  cursor:pointer; transition: transform .2s ease, box-shadow .3s ease;
+}
+#jade-stone:hover{ transform: scale(1.08); box-shadow: 0 0 30px rgba(134,232,200,.9), 0 0 60px rgba(134,232,200,.6); }
+
+
+/* flash effect when cultivating */
+.cultivate-flash { animation: flashJade .6s ease; }
+@keyframes flashJade {
+  0%{ box-shadow: 0 0 0 rgba(134,232,200,0); }
+  40%{ box-shadow: 0 0 18px rgba(134,232,200,.75); }
+  100%{ box-shadow: 0 0 0 rgba(134,232,200,0); }
+}
+</style>
 
 
 <!-- Cultivation Platform -->
@@ -42,197 +108,76 @@ San Diego, California.
 </div>
 
 
-<style>
-/* Cultivation Platform Styles */
-.cultivation-platform{
-  text-align:center;
-  padding:16px;
-}
-
-
-/* glowing jade stone */
-#jade-stone{
-  width:100px;
-  height:100px;
-  margin:0 auto;
-  border-radius:50%;
-  background: radial-gradient(circle at 30% 30%, #9ef5d5, #4fc4a1 70%, #2a7a63 100%);
-  box-shadow: 0 0 20px rgba(134,232,200,.7), 0 0 40px rgba(134,232,200,.4);
-  cursor:pointer;
-  transition: transform .2s ease, box-shadow .3s ease;
-}
-#jade-stone:hover{
-  transform: scale(1.08);
-  box-shadow: 0 0 30px rgba(134,232,200,.9), 0 0 60px rgba(134,232,200,.6);
-}
-
-
-/* flash effect when cultivating */
-.cultivate-flash {
-  animation: flashJade .6s ease;
-}
-@keyframes flashJade {
-  0%   { box-shadow: 0 0 0 rgba(134,232,200,0); }
-  40%  { box-shadow: 0 0 18px rgba(134,232,200,.75); }
-  100% { box-shadow: 0 0 0 rgba(134,232,200,0); }
-}
-</style>
-
-
-<style>
-    /* Style looks pretty compact,
-       - grid-container and grid-item are referenced the code
-    */
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Dynamic columns */
-        gap: 10px;
-    }
-    .grid-item {
-        text-align: center;
-    }
-    .grid-item img {
-        width: 100%;
-        height: 100px; /* Fixed height for uniformity */
-        object-fit: contain; /* Ensure the image fits within the fixed height */
-    }
-    .grid-item p {
-        margin: 5px 0; /* Add some margin for spacing */
-    }
-
-
-    .image-gallery {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        gap: 10px;
-        }
-
-
-    .image-gallery img {
-        max-height: 150px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-</style>
-
-
-<!-- This grid_container class is used by CSS styling and the id is used by JavaScript connection -->
-<div class="grid-container" id="grid_container">
-    <!-- content will be added here by JavaScript -->
-</div>
-
-
 <script>
-  // --- Fallbacks to prevent ReferenceErrors without changing your loops ---
-  window.http_source = window.http_source || "";
-
-
-  window.living_in_the_world = window.living_in_the_world || [
-    {
-      flag: "https://flagcdn.com/w320/cn.png",
-      description: "Harbin, China",
-      greeting: "你好 (Nǐ hǎo)"
-    },
-    {
-      flag: "https://flagcdn.com/w320/us.png",
-      description: "Austin, Texas",
-      greeting: "Howdy!"
-    },
-    {
-      flag: "https://flagcdn.com/w320/us.png",
-      description: "San Diego, California",
-      greeting: "Hey! 🌊"
-    }
+(function(){
+  const REALMS = [
+    "Mortal",
+    "Qi Refinement",
+    "Foundation Establishment (Zhuji)",
+    "Core Formation (Jindan)",
+    "Nascent Soul (Yuanying)",
+    "Soul Transformation",
+    "Ascension"
   ];
+  // clicks needed to advance from the current realm to the next
+  const STEPS = [3, 5, 8, 12, 16, 20];
+
+
+  const KEY_IDX  = "cultivation_realm_index";
+  const KEY_SUB  = "cultivation_realm_sub";
+
+
+  const stone = document.getElementById('jade-stone');
+  const label = document.getElementById('realm-label');
+  const bar   = document.getElementById('realm-bar');
+  const card  = document.getElementById('cultivation-card');
+  if(!stone || !label || !bar || !card) return;
+
+
+  let idx = parseInt(localStorage.getItem(KEY_IDX) || "0", 10);
+  let sub = parseInt(localStorage.getItem(KEY_SUB) || "0", 10);
+  idx = isNaN(idx) ? 0 : Math.min(Math.max(idx,0), REALMS.length-1);
+  sub = isNaN(sub) ? 0 : Math.max(sub,0);
+
+
+  function render(){
+    if(idx >= REALMS.length-1){
+      label.textContent = REALMS[idx] + " · Achieved";
+      bar.style.width = "100%";
+      return;
+    }
+    const need = STEPS[idx] || 1;
+    const pct = ((idx + (sub/need)) / (REALMS.length-1)) * 100;
+    label.textContent = `${REALMS[idx]}  ${sub}/${need}`;
+    bar.style.width = pct + "%";
+  }
+
+
+  function cultivate(){
+    if(idx >= REALMS.length-1){
+      label.textContent = REALMS[idx] + " · Achieved";
+      return;
+    }
+    sub += 1;
+    const need = STEPS[idx] || 1;
+    if(sub >= need){
+      idx += 1;
+      sub = 0;
+      localStorage.setItem(KEY_IDX, String(idx));
+      localStorage.setItem(KEY_SUB, String(sub));
+    }else{
+      localStorage.setItem(KEY_SUB, String(sub));
+    }
+    render();
+    stone.classList.add('cultivate-flash');
+    setTimeout(()=>stone.classList.remove('cultivate-flash'), 550);
+  }
+
+
+  stone.addEventListener('click', cultivate);
+  render();
+})();
 </script>
-
-
-<style>
-  /* --- Xianxia theme accents --- */
-  .xianxia-banner{
-    position: relative;
-    padding: 28px 18px;
-    margin: 18px 0 8px;
-    border-radius: 12px;
-    background:
-      radial-gradient(1200px 200px at 50% 0%, rgba(255,255,255,.45), transparent 60%),
-      linear-gradient(180deg, #e6fff7 0%, #eafbf6 38%, #f7fffd 100%);
-    border: 2px solid #b2e4d6;
-    box-shadow: 0 6px 18px rgba(0,0,0,.06), inset 0 0 0 1px #e0fff5;
-  }
-  .xianxia-title{
-    font-family: "Zhi Mang Xing","Noto Serif SC", serif;
-    font-size: 2rem;
-    letter-spacing: 2px;
-    color: #137a5d;
-    text-align: center;
-    text-shadow: 0 2px 0 rgba(255,255,255,.8);
-  }
-  .jade-divider{
-    height: 12px;
-    margin: 12px auto 0;
-    width: 180px;
-    border-radius: 999px;
-    background: linear-gradient(90deg,#c6f3e5,#8be0c9,#c6f3e5);
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,.08));
-  }
-
-
-  /* soft moving clouds behind content */
-  .xianxia-sky{
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    background: linear-gradient(#f8fffe, #eefcfe);
-  }
-  .cloud{
-    position: absolute;
-    top: 10%;
-    width: 220px; height: 80px;
-    background: radial-gradient(closest-side at 30% 50%, #fff 0%, #fff 60%, transparent 61%) 0 0/60% 100% no-repeat,
-                radial-gradient(closest-side at 70% 50%, #fff 0%, #fff 60%, transparent 61%) 100% 0/60% 100% no-repeat,
-                radial-gradient(closest-side, #fff 0%, #fff 60%, transparent 61%) 50% 0/90% 100% no-repeat;
-    opacity: .7;
-    filter: blur(0.5px);
-    animation: drift 60s linear infinite;
-  }
-  .cloud.c2{ top: 35%; transform: scale(1.2); animation-duration: 75s; opacity: .6;}
-  .cloud.c3{ top: 60%; transform: scale(0.9); animation-duration: 85s; opacity: .55;}
-
-
-  @keyframes drift{
-    0%   { left: -260px }
-    100% { left: calc(100% + 260px) }
-  }
-
-
-  /* faint qi motes */
-  .qi-layer{ position: relative; }
-  .qi{
-    position: absolute;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(160,255,230,.95), rgba(160,255,230,0) 70%);
-    filter: blur(.3px);
-    animation: floatUp 7s linear infinite;
-    opacity: .8;
-  }
-  @keyframes floatUp{
-    0%   { transform: translateY(0) translateX(0); opacity: .0;}
-    10%  { opacity: .9;}
-    100% { transform: translateY(-180px) translateX(40px); opacity: 0;}
-  }
-
-
-  /* optional: jade card look for existing sections without touching their HTML */
-  .jade-card{
-    border: 1.5px solid #cdeee4;
-    border-radius: 10px;
-    padding: 12px;
-    background: linear-gradient(180deg, rgba(240,255,250,.8), rgba(255,255,255,.7));
-  }
-</style>
 
 
 ### Journey through Life
@@ -369,6 +314,7 @@ Gallery of Pics, scroll to the right for more ...
   render();
 })();
 </script>
+
 
 
 
