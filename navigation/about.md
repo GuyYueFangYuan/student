@@ -4,8 +4,6 @@ title: Cyrus about me
 permalink: /about/
 comments: true
 ---
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
-
 
 ## As a conversation Starter
 
