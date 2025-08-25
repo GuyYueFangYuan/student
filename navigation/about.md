@@ -177,6 +177,12 @@ San Diego, California.
   stone.addEventListener('click', cultivate);
   render();
 })();
+<p style="font-size:.9rem; color:#0a6b52; opacity:.9; margin-top:8px; text-align:center;">
+  Click the jade stone to cultivate and ascend realms.
+</p>
+
+
+<button id="reset-cultivation" type="button" class="jade-reset">Reset Progress</button>
 </script>
 
 
