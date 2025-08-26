@@ -6,7 +6,7 @@ github_repo: "student"
 baseurl: "/student"
 future: true
 
-remote_theme: jekyll/cayman
+remote_theme: jekyll-theme-cayman
 
 plugins:
   - jekyll-remote-theme
