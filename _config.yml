@@ -5,7 +5,7 @@ github_username: GuyYueFangYUan
 github_repo: "student" 
 baseurl: "/student"
 future: true
-remote_theme: jekyll/minima
+remote_theme: jekyll/cayman
 minima:
   skin: dark
   social_links:
