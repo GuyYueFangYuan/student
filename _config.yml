@@ -5,21 +5,11 @@ github_username: GuyYueFangYUan
 github_repo: "student" 
 baseurl: "/student"
 future: true
-remote_theme: jekyll/cayman
-minima:
-  skin: dark
-  social_links:
-    - { platform: github, user_url: "https://github.com/nighthawkcoders"}
-    - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
-    - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" } 
-# remote_theme: pages-themes/midnight@v0.2.0
-# remote_theme: pages-themes/dinky@v0.2.0
-# remote_theme: pages-themes/minimal@v0.2.0
+
 remote_theme: pages-themes/cayman@v0.2.0
-# remote_theme: pages-themes/time-machine@v0.2.0
+
 plugins:
   - jekyll-remote-theme
-minima:
-  nav_pages:
-    - navigation/blog.md
-    - navigation/search.md
+
+# Minima options won't apply here since you're using Cayman.
+# Remove or switch to minima theme if you want nav_pages, skin, etc.
