@@ -6,10 +6,17 @@ github_repo: "student"
 baseurl: "/student"
 future: true
 
-remote_theme: pages-themes/cayman@v0.2.0
+remote_theme: jekyll/minima
 
 plugins:
   - jekyll-remote-theme
 
-# Minima options won't apply here since you're using Cayman.
-# Remove or switch to minima theme if you want nav_pages, skin, etc.
+minima:
+  skin: leaf
+  social_links:
+    - { platform: github, user_url: "https://github.com/nighthawkcoders"}
+    - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
+    - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" }
+  nav_pages:
+    - navigation/blog.md
+    - navigation/search.md
