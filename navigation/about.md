@@ -9,7 +9,7 @@ comments: true
 ## As a conversation Starter
 
 
-<comment>``
+<comment>
 Here are some places I lived in.
 Harbin, China
 Austin, Texas

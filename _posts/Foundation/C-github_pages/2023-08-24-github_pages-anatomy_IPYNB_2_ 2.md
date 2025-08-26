@@ -112,16 +112,16 @@ The  `_sass/minima` folder is a theme with many subthemes that can be changed in
 // Comment in or Uncomment out the following themes to use them 
 
 // Dark themes
-//@import "minima/leaf/_leaf";  //Leaf theme
+@import "minima/leaf/_leaf";  //Leaf theme
 //@import "minima/hacker/jekyll-theme-hacker"; //Hacker theme 
-@import "minima/dracula/_dracula";
+//@import "minima/dracula/_dracula";
 
 // Light themes
 //@import "minima/hamilton/main"; //Hamilton theme
 //@import "minima/monophase/main"; //Monophase theme 
 //@import "minima/minimal-mistakes/__minimal-mistakes"; //Minimal Mistakes theme 
 // Mix Light themes with this if your eyes are bleeding 
-@import "minima/dracula/dark-mode";
+//@import "minima/dracula/dark-mode";
 
 // Styles for nighthawk theme, do not remove
 @import "nighthawk/main";
