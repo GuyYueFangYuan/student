@@ -12,7 +12,7 @@ plugins:
   - jekyll-remote-theme
 
 minima:
-  skin: leaf
+  skin: solarized
   social_links:
     - { platform: github, user_url: "https://github.com/nighthawkcoders"}
     - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
