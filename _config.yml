@@ -18,9 +18,9 @@ social_links:
   - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" }
 
 nav_pages:
+  - navigation/about.md
   - navigation/blog.md
   - navigation/search.md
-  - navigation/about.md
-  - navigation/index.md
+  - index.md
 
 
