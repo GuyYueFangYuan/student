@@ -1,22 +1,22 @@
-title: Open Coding 
-description: "Class of 2026"
-owner_name: John Mortensen
-github_username: jm1021 
+title: Cyrus Zhang's personal blog
+description: "I'm a person"
+owner_name: Cyrus Zhang
+github_username: GuyYueFangYUan
 github_repo: "student" 
-baseurl: "/student" 
+baseurl: "/student"
 future: true
-remote_theme: jekyll/minima
-minima:
-  skin: dark
-  social_links:
-    - { platform: github, user_url: "https://github.com/open-coding-society" }
-    - { platform: x, user_url: "https://x.com/Open_Coding" }
-    - { platform: youtube, user_url: "https://www.youtube.com/@OpenCodingSociety" } 
+
+remote_theme: jekyll-theme-cayman
+
 plugins:
   - jekyll-remote-theme
-  - jekyll-include-cache
-header_pages:
+
+social_links:
+  - { platform: github, user_url: "https://github.com/nighthawkcoders"}
+  - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
+  - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" }
+
+nav_pages:
   - navigation/blog.md
   - navigation/search.md
-  - navigation/about.md
-  - navigation/logintoolkit.md
+
