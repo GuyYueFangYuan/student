@@ -6,10 +6,11 @@ github_repo: "student"
 baseurl: "/student"
 future: true
 
-remote_theme: jekyll-theme-cayman
-
+remote_theme: jekyll/minima
 plugins:
   - jekyll-remote-theme
+minima:
+  skin: dark
 
 social_links:
   - { platform: github, user_url: "https://github.com/nighthawkcoders"}
