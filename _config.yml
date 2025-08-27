@@ -20,4 +20,7 @@ social_links:
 nav_pages:
   - navigation/blog.md
   - navigation/search.md
+  - about.md
+  - index.md
+
 
