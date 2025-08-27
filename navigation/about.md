@@ -1,10 +1,8 @@
 ---
-layout: post
-title: Cyrus about me
+layout: page
+title: About
 permalink: /about/
-comments: true
 ---
-
 
 ## As a conversation Starter
 
