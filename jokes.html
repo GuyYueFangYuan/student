@@ -1,0 +1,258 @@
+---
+layout: page
+title: Jokes Lab
+permalink: /jokes/
+---
+
+<style>
+  .jokes-card{border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;margin:16px 0;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .controls{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 16px}
+  .controls > *{padding:.55rem .75rem;border:1px solid #d0d7de;border-radius:10px;background:#fff}
+  .pill{cursor:pointer}
+  .pill.active{background:#0366d6;color:#fff;border-color:#0366d6}
+  .meter{height:10px;background:#e9ecef;border-radius:999px;overflow:hidden}
+  .meter>div{height:100%;width:0%;transition:width .35s linear}
+  .tag{display:inline-block;background:#e6ffed;color:#0366d6;border-radius:999px;padding:.2rem .6rem;margin-left:.5rem;font-size:.85rem}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .grow{flex:1}
+  .fav{color:#f59e0b}
+  .footer-note{font-size:.9rem;color:#6a737d;margin-top:12px}
+  .small{font-size:.9rem;color:#6a737d}
+  .hidden{display:none}
+  /* tiny confetti */
+  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+  .confetti i{position:absolute;width:6px;height:10px;animation:fall 900ms linear forwards}
+  @keyframes fall{to{transform:translateY(100vh) rotate(360deg);opacity:0}}
+</style>
+
+<div class="jokes-card">
+  <div class="row">
+    <select id="category" class="grow">
+      <option value="programmer">Programmer Jokes</option>
+      <option value="accountant">Accountant Jokes</option>
+      <option value="custom">My Own Jokes</option>
+      <option value="mixed">Mix Everything</option>
+    </select>
+
+    <div class="controls" role="group" aria-label="Complexity filter">
+      <button class="pill active" data-level="any">Any</button>
+      <button class="pill" data-level="1">Lvl 1</button>
+      <button class="pill" data-level="2">Lvl 2</button>
+      <button class="pill" data-level="3">Lvl 3+</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <button id="btn-new">🎲 New Joke (Space)</button>
+    <button id="btn-fav">⭐ Save</button>
+    <button id="btn-copy">📋 Copy</button>
+    <button id="btn-share">🔗 Share</button>
+    <span id="count" class="small"></span>
+  </div>
+
+  <h3 id="joke" style="margin:12px 0 6px">Loading…</h3>
+  <div class="small">
+    Complexity <span id="levelTag" class="tag">—</span>
+  </div>
+  <div class="meter" style="margin-top:10px"><div id="meterFill" style="background:#34d399"></div></div>
+
+  <div class="footer-note">Tip: press <strong>Space</strong> for a new joke, <strong>F</strong> to save, <strong>C</strong> to copy.</div>
+</div>
+
+<div class="jokes-card">
+  <h4>Add Your Own Joke</h4>
+  <div class="row">
+    <input id="myJoke" class="grow" placeholder="Type your joke…" />
+    <select id="myLevel">
+      <option value="1">Lvl 1</option>
+      <option value="2">Lvl 2</option>
+      <option value="3">Lvl 3</option>
+    </select>
+    <button id="btn-add">➕ Add</button>
+  </div>
+  <div class="small">Your jokes are saved locally (browser storage).</div>
+</div>
+
+<div class="jokes-card">
+  <h4>⭐ Favorites</h4>
+  <ul id="favs" class="small" style="padding-left:18px;margin:0"></ul>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<script>
+(() => {
+  // --- data ------------------------------------------------------------------
+  const programmer = [
+    { joke: "Why do programmers prefer dark mode? Because light attracts bugs.", complexity: 1 },
+    { joke: "Why do Java developers wear glasses? Because they don't C#.", complexity: 2 },
+    { joke: "How many programmers to change a light bulb? None — that's a hardware problem.", complexity: 1 },
+    { joke: "Why was the JS dev sad? Because he didn’t know how to null his feelings.", complexity: 3 },
+    { joke: "Oct 31 == Dec 25", complexity: 3 },
+    { joke: "Why did the programmer quit his job? He didn't get arrays.", complexity: 2 },
+    { joke: "Why do Linux users love the shell? They can’t stand Windows.", complexity: 1 },
+  ];
+
+  const accountant = [
+    { joke: "Why did the accountant cross the road? To bore the people on the other side.", complexity: 1 },
+    { joke: "He learns to act his wage.", complexity: 1 },
+    { joke: "He went broke — he lost his balance.", complexity: 1 },
+    { joke: "Good with cheetahs.", complexity: 2 },
+    { joke: "Juggling numbers at the circus.", complexity: 2 },
+  ];
+
+  // --- state -----------------------------------------------------------------
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const dom = {
+    cat: $('#category'),
+    pills: $$('.pill'),
+    newBtn: $('#btn-new'),
+    favBtn: $('#btn-fav'),
+    copyBtn: $('#btn-copy'),
+    shareBtn: $('#btn-share'),
+    h: $('#joke'),
+    lvl: $('#levelTag'),
+    meter: $('#meterFill'),
+    count: $('#count'),
+    addBtn: $('#btn-add'),
+    myJoke: $('#myJoke'),
+    myLevel: $('#myLevel'),
+    favs: $('#favs'),
+    confetti: $('#confetti'),
+  };
+
+  const store = {
+    get(key, fallback){ try{ return JSON.parse(localStorage.getItem(key)) ?? fallback }catch{ return fallback } },
+    set(key,val){ localStorage.setItem(key, JSON.stringify(val)) }
+  };
+
+  let current = null;
+  let filterLevel = 'any';
+
+  function dataset() {
+    const mine = store.get('myJokes', []);
+    if (dom.cat.value === 'programmer') return programmer;
+    if (dom.cat.value === 'accountant') return accountant;
+    if (dom.cat.value === 'custom') return mine;
+    return [...programmer, ...accountant, ...mine];
+  }
+
+  function pick() {
+    let pool = dataset();
+    if (filterLevel !== 'any') pool = pool.filter(j => +j.complexity >= +filterLevel);
+    if (!pool.length) {
+      dom.h.textContent = "No jokes match this filter yet. Add one?";
+      dom.lvl.textContent = "—";
+      dom.meter.style.width = "0%";
+      dom.count.textContent = "";
+      current = null;
+      return;
+    }
+    current = pool[Math.floor(Math.random()*pool.length)];
+    render();
+  }
+
+  function render() {
+    dom.h.textContent = current.joke;
+    dom.lvl.textContent = "Lvl " + current.complexity;
+    const pct = Math.min(100, (+current.complexity)/3*100);
+    dom.meter.style.width = pct + "%";
+    dom.count.textContent = `Pool: ${dataset().length} jokes`;
+  }
+
+  function toastConfetti() {
+    for (let i=0;i<30;i++){
+      const p = document.createElement('i');
+      p.style.left = Math.random()*100 + 'vw';
+      p.style.background = `hsl(${Math.random()*360},90%,60%)`;
+      p.style.transform = `translateY(-10px) rotate(${Math.random()*180}deg)`;
+      dom.confetti.appendChild(p);
+      setTimeout(()=>p.remove(), 900);
+    }
+  }
+
+  // --- events ----------------------------------------------------------------
+  dom.newBtn.onclick = pick;
+
+  dom.pills.forEach(btn => btn.onclick = () => {
+    dom.pills.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterLevel = btn.dataset.level;
+    pick();
+  });
+
+  dom.cat.onchange = pick;
+
+  dom.copyBtn.onclick = async () => {
+    if (!current) return;
+    await navigator.clipboard.writeText(current.joke);
+    dom.copyBtn.textContent = "✅ Copied";
+    setTimeout(()=>dom.copyBtn.textContent="📋 Copy", 900);
+  };
+
+  dom.shareBtn.onclick = async () => {
+    if (!current) return;
+    const text = `${current.joke} — (Complexity ${current.complexity})`;
+    try {
+      if (navigator.share) { await navigator.share({ text, title: "Joke" }); }
+      else { await navigator.clipboard.writeText(text); }
+      dom.shareBtn.textContent = "✅ Shared";
+      setTimeout(()=>dom.shareBtn.textContent="🔗 Share", 900);
+    } catch {}
+  };
+
+  dom.favBtn.onclick = () => {
+    if (!current) return;
+    const favs = store.get('favs', []);
+    if (!favs.find(f => f.joke === current.joke)) favs.push(current);
+    store.set('favs', favs);
+    renderFavs();
+    dom.favBtn.classList.add('fav');
+    toastConfetti();
+    setTimeout(()=>dom.favBtn.classList.remove('fav'), 600);
+  };
+
+  function renderFavs() {
+    const favs = store.get('favs', []);
+    dom.favs.innerHTML = favs.length ? '' : '<li>No favorites yet.</li>';
+    favs.forEach((f, i) => {
+      const li = document.createElement('li');
+      li.textContent = `${f.joke} (Lvl ${f.complexity}) `;
+      const del = document.createElement('button');
+      del.textContent = 'Remove';
+      del.style.marginLeft = '6px';
+      del.onclick = () => {
+        const arr = store.get('favs', []).filter((_,idx)=>idx!==i);
+        store.set('favs', arr);
+        renderFavs();
+      };
+      li.appendChild(del);
+      dom.favs.appendChild(li);
+    });
+  }
+
+  dom.addBtn.onclick = () => {
+    const text = dom.myJoke.value.trim();
+    const lvl = +dom.myLevel.value;
+    if (!text) return;
+    const mine = store.get('myJokes', []);
+    mine.push({ joke: text, complexity: lvl });
+    store.set('myJokes', mine);
+    dom.myJoke.value = "";
+    if (dom.cat.value === 'custom' || dom.cat.value === 'mixed') pick();
+    toastConfetti();
+  };
+
+  // keyboard shortcuts
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Space'){ e.preventDefault(); pick(); }
+    if (e.key.toLowerCase() === 'f'){ dom.favBtn.click(); }
+    if (e.key.toLowerCase() === 'c'){ dom.copyBtn.click(); }
+  });
+
+  // init
+  renderFavs();
+  pick();
+})();
+</script>
