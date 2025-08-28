@@ -1,28 +1,33 @@
-title: Cyrus Zhang's personal blog
-<<<<<<< HEAD
-description: Interviewer: “Can you explain recursion in one sentence?”  Programmer: “Can you explain recursion in one sentence?”
-=======
-description: Interviewer: “Can you explain recursion in one sentence?” Programmer: “Can you explain recursion in one sentence?”
->>>>>>> 62e4a71395dcf18e5d2432976f745496eef2f547
-owner_name: Cyrus Zhang
-github_username: GuyYueFangYUan
-github_repo: "student" 
-baseurl: "/student"
-future: true
+title: "Cyrus Zhang's personal blog"
+description: |
+  Interviewer: "Can you explain recursion in one sentence?"
+  Programmer: "Can you explain recursion in one sentence?"
 
-remote_theme: pages-themes/cayman@v0.2.0
+owner_name: "Cyrus Zhang"
+
+baseurl: "/student"
+# Optional: if you want canonical URLs
+# url: "https://guyyuefangyuan.github.io"
+
+remote_theme: "jekyll/minima"
 plugins:
   - jekyll-remote-theme
 
-social_links:
-  - { platform: github, user_url: "https://github.com/nighthawkcoders"}
-  - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
-  - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" }
+minima:
+  skin: dark
 
+# Minima uses header_pages (not nav_pages)
 header_pages:
+  - navigation/about.md
   - navigation/blog.md
   - navigation/search.md
-  - navigation/about.md
-  - navigation/logintoolkit.md
+
+social_links:
+  - platform: github
+    user_url: "https://github.com/nighthawkcoders"
+  - platform: x
+    user_url: "https://x.com/NighthawkCoding/"
+  - platform: youtube
+    user_url: "https://www.youtube.com/@nighthawkcodingsociety2868"
 
 
