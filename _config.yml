@@ -15,10 +15,10 @@ social_links:
   - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
   - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" }
 
-nav_pages:
+header_pages:
   - navigation/blog.md
   - navigation/search.md
   - navigation/about.md
-  - navigation/index.md
+  - navigation/logintoolkit.md
 
 
