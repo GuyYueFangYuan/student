@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="{{ "/" | relative_url }}">Home</a>
+    <a href="{{ "/blogs" | relative_url }}">Blogs</a>
+    <a href="{{ "/search" | relative_url }}">Search</a>
+    <a href="{{ "/about/" | relative_url }}">About Me</a>
+    <a href="{{ "/login" | relative_url }}">Login</a>
+  </nav>
+</header>
+
+<!-- 👇 Cayman’s container wrappers -->
+<main class="page-content" aria-label="Content">
+  <div class="wrapper">
+    {{ content }}
+  </div>
+</main>
+
+<!-- 👇 add this line to load your custom CSS -->
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
