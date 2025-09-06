@@ -1,0 +1,36 @@
+<!-- Theme Selector Component -->
+<div id="theme-selector" style="position: fixed; top: 10px; left: 10px; z-index: 1000; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px;">
+  <label for="theme-choice" style="margin-right: 10px; font-weight: bold;">Theme:</label>
+  <select id="theme-choice" onchange="switchTheme(this.value)" style="padding: 5px; border-radius: 3px;">
+    <option value="minima">Minima</option>
+    <option value="text">TeXt</option>
+  </select>
+</div>
+
+<script>
+  function switchTheme(theme) {
+    localStorage.setItem('selectedTheme', theme);
+    
+    // Show loading indicator
+    document.body.style.opacity = '0.5';
+    
+    // Reload page with theme parameter
+    const url = new URL(window.location);
+    url.searchParams.set('theme', theme);
+    window.location.href = url.toString();
+  }
+  
+  // Load saved theme preference
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('selectedTheme') || 'minima';
+    document.getElementById('theme-choice').value = savedTheme;
+    
+    // Apply theme parameter if present
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
+    if (themeParam && themeParam !== savedTheme) {
+      localStorage.setItem('selectedTheme', themeParam);
+      document.getElementById('theme-choice').value = themeParam;
+    }
+  });
+</script>

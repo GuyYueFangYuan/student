@@ -16,7 +16,7 @@
       </div>
       <div>
         <h1 style="color: #1e293b; font-size: 1.8rem; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2; margin: 0; text-shadow: none;" class="wb-title">Live Whiteboard</h1>
-        <p style="color: #475569; font-size: 0.9rem; margin-top: 0.5rem; font-weight: 500;" class="wb-subtitle">Connect to your teacher's shared whiteboard</p>
+        <p style="color: #1e293b; font-size: 0.9rem; margin-top: 0.5rem; font-weight: 500;" class="wb-subtitle">Connect to your teacher's shared whiteboard</p>
       </div>
     </div>
 
@@ -326,9 +326,6 @@
     event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
   });
 
-  window.addEventListener('load', () => {
-    document.getElementById('wbBoardCode').focus();
-  });
 
   document.getElementById('wbWhiteboardFrame').addEventListener('error', () => {
     showStatusMessage('Failed to load whiteboard. Please check the board code.', 'error');

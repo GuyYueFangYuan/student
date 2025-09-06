@@ -1,0 +1,117 @@
+
+<h2 class="text-2xl font-bold text-orange-600 mb-6">Empathy Map</h2>
+
+<div class="max-w-4xl mx-auto my-8 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
+  <div class="relative flex flex-col items-center">
+    <!-- Center Circle: Persona Name, overlays grid -->
+    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+      <div class="w-28 h-28 flex items-center justify-center rounded-full border-4 border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-900 text-lg font-bold text-gray-800 dark:text-gray-200 shadow">
+        {{ page.persona }}
+      </div>
+    </div>
+    <!-- Four Quadrants Grid -->
+    <div class="grid grid-cols-2 grid-rows-2 gap-6 w-full relative" style="min-height: 300px;">
+      <div class="p-4 rounded border border-gray-400 dark:border-gray-600 bg-transparent">
+        <h3 class="font-semibold mb-2">Says</h3>
+        <ul class="list-disc ml-5">
+          {% for item in page.empathy_map.says %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="p-4 rounded border border-gray-400 dark:border-gray-600 bg-transparent">
+        <h3 class="font-semibold mb-2">Thinks</h3>
+        <ul class="list-disc ml-5">
+          {% for item in page.empathy_map.thinks %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="p-4 rounded border border-gray-400 dark:border-gray-600 bg-transparent">
+        <h3 class="font-semibold mb-2">Feels</h3>
+        <ul class="list-disc ml-5">
+          {% for item in page.empathy_map.feels %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="p-4 rounded border border-gray-400 dark:border-gray-600 bg-transparent">
+        <h3 class="font-semibold mb-2">Does</h3>
+        <ul class="list-disc ml-5">
+          {% for item in page.empathy_map.does %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<h2 class="text-2xl font-bold text-orange-600 mb-6">Persona Template</h2>
+
+<div class="max-w-3xl mx-auto my-8 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
+  <!-- Bio/Heading Section -->
+  <h2 class="text-3xl font-bold text-orange-600 mb-2">{{ page.persona }}</h2>
+  <div class="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded">
+    <p class="text-gray-700 dark:text-gray-200 font-semibold">
+      {{ page.bio }}
+    </p>
+  </div>
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Persona Info -->
+    <div class="flex-1">
+      <h3 class="text-xl font-semibold mb-2">Details</h3>
+      <div class="mb-2 text-gray-700 dark:text-gray-200">
+        <span class="font-semibold">Age:</span> {{ page.age }}<br>
+        <span class="font-semibold">Role:</span> {{ page.role }}<br>
+        <span class="font-semibold">Status:</span> {{ page.status }}<br>
+        <span class="font-semibold">Location:</span> {{ page.location }}<br>
+        <span class="font-semibold">Tier:</span> {{ page.tier }}<br>
+        <h3 class="text-xl font-semibold mb-2">Personality</h3>
+        <div class="flex flex-wrap gap-2 mb-2">
+          {% for trait in page.personality %}
+            <span class="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded text-xs">{{ trait }}</span>
+          {% endfor %}
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Archetype</h3>
+        <span class="font-semibold">{{ page.archetype }}</span>
+        {% for tag in page.tags %}
+          <span class="inline-block bg-gray-200 dark:bg-gray-800 text-xs px-2 py-1 rounded mr-2">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      <!-- Left Column: Quotes -->
+      <div class="flex-1">
+        <h3 class="text-xl font-semibold mb-2">Says</h3>
+        {% for quote in page.empathy_map.says %}
+          <blockquote class="italic text-orange-700 dark:text-orange-300 border-l-4 border-orange-400 pl-4 my-4">
+            "{{ quote }}"
+          </blockquote>
+        {% endfor %}
+        <!-- ...existing details... -->
+      </div>
+    </div>
+    <!-- Persona Details -->
+    <div class="flex-1">
+      <h3 class="text-xl font-semibold mb-2">Feels</h3>
+      <ul class="list-disc ml-5 mb-4 text-gray-700 dark:text-gray-200">
+        {% for item in page.empathy_map.feels %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+      <h3 class="text-xl font-semibold mb-2">Thinks</h3>
+      <ul class="list-disc ml-5 mb-4 text-gray-700 dark:text-gray-200">
+        {% for item in page.empathy_map.thinks %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+      <h3 class="text-xl font-semibold mb-2">Does</h3>
+      <ul class="list-disc ml-5 text-gray-700 dark:text-gray-200">
+        {% for item in page.empathy_map.does %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
