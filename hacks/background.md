@@ -5,9 +5,9 @@ title: Background with Object
 description: Use JavaScript to have an in-motion background.
 #Change the flying UFO part to change the image
 #Need to save before regenerating
-sprite: images/platformer/sprites/flying-ufo.png
+sprite: images/platformer/sprites/bird.png
 #background of the animation
-background: images/platformer/backgrounds/alien_planet1.jpg
+background: images/platformer/backgrounds/OIP.webp
 permalink: /background/
 ---
 

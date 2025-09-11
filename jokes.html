@@ -44,9 +44,6 @@ permalink: /jokes/
 
   <div class="row">
     <button id="btn-new">🎲 New Joke (Space)</button>
-    <button id="btn-fav">⭐ Save</button>
-    <button id="btn-copy">📋 Copy</button>
-    <button id="btn-share">🔗 Share</button>
     <span id="count" class="small"></span>
   </div>
 
@@ -56,7 +53,9 @@ permalink: /jokes/
   </div>
   <div class="meter" style="margin-top:10px"><div id="meterFill" style="background:#34d399"></div></div>
 
-  <div class="footer-note">Tip: press <strong>Space</strong> for a new joke, <strong>F</strong> to save, <strong>C</strong> to copy.</div>
+  <div class="footer-note">
+    Shortcuts: <strong>Space</strong> new • <strong>F</strong> save to Favorites • <strong>C</strong> copy • <strong>S</strong> share
+  </div>
 </div>
 
 <div class="jokes-card">
@@ -91,6 +90,14 @@ permalink: /jokes/
     { joke: "Oct 31 == Dec 25", complexity: 3 },
     { joke: "Why did the programmer quit his job? He didn't get arrays.", complexity: 2 },
     { joke: "Why do Linux users love the shell? They can’t stand Windows.", complexity: 1 },
+    // New additions
+    { joke: "I told my computer I needed a break, and it said: 'You seem stressed — shall I kill -9 chrome?'", complexity: 2 },
+    { joke: "A SQL query walks into a bar, walks out of a table, leaves in a hurry — no commit.", complexity: 3 },
+    { joke: "There are 10 kinds of people: those who understand binary and those who don’t.", complexity: 1 },
+    { joke: "Regex went on a date and said, 'You complete (me)?'", complexity: 3 },
+    { joke: "Git and I had a fight. I had to resolve it with a merge.", complexity: 2 },
+    { joke: "I would tell you a UDP joke, but you might not get it.", complexity: 2 },
+    { joke: "Stack overflow? I prefer to call it 'research'.", complexity: 1 },
   ];
 
   const accountant = [
@@ -99,6 +106,11 @@ permalink: /jokes/
     { joke: "He went broke — he lost his balance.", complexity: 1 },
     { joke: "Good with cheetahs.", complexity: 2 },
     { joke: "Juggling numbers at the circus.", complexity: 2 },
+    // New additions
+    { joke: "Auditor’s favorite game? Hide and spreadsheet.", complexity: 1 },
+    { joke: "My accountant is so optimistic, every loss is just 'negative revenue'.", complexity: 2 },
+    { joke: "Debit the chocolate, credit my mood.", complexity: 1 },
+    { joke: "Tax season: when 'interest' isn’t interesting.", complexity: 2 },
   ];
 
   // --- state -----------------------------------------------------------------
@@ -108,9 +120,6 @@ permalink: /jokes/
     cat: $('#category'),
     pills: $$('.pill'),
     newBtn: $('#btn-new'),
-    favBtn: $('#btn-fav'),
-    copyBtn: $('#btn-copy'),
-    shareBtn: $('#btn-share'),
     h: $('#joke'),
     lvl: $('#levelTag'),
     meter: $('#meterFill'),
@@ -172,46 +181,29 @@ permalink: /jokes/
     }
   }
 
-  // --- events ----------------------------------------------------------------
-  dom.newBtn.onclick = pick;
-
-  dom.pills.forEach(btn => btn.onclick = () => {
-    dom.pills.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    filterLevel = btn.dataset.level;
-    pick();
-  });
-
-  dom.cat.onchange = pick;
-
-  dom.copyBtn.onclick = async () => {
-    if (!current) return;
-    await navigator.clipboard.writeText(current.joke);
-    dom.copyBtn.textContent = "✅ Copied";
-    setTimeout(()=>dom.copyBtn.textContent="📋 Copy", 900);
-  };
-
-  dom.shareBtn.onclick = async () => {
-    if (!current) return;
-    const text = `${current.joke} — (Complexity ${current.complexity})`;
-    try {
-      if (navigator.share) { await navigator.share({ text, title: "Joke" }); }
-      else { await navigator.clipboard.writeText(text); }
-      dom.shareBtn.textContent = "✅ Shared";
-      setTimeout(()=>dom.shareBtn.textContent="🔗 Share", 900);
-    } catch {}
-  };
-
-  dom.favBtn.onclick = () => {
+  // --- favorites/copy/share via shortcuts (buttons removed) ------------------
+  function saveFavorite() {
     if (!current) return;
     const favs = store.get('favs', []);
     if (!favs.find(f => f.joke === current.joke)) favs.push(current);
     store.set('favs', favs);
     renderFavs();
-    dom.favBtn.classList.add('fav');
     toastConfetti();
-    setTimeout(()=>dom.favBtn.classList.remove('fav'), 600);
-  };
+  }
+
+  async function copyJoke() {
+    if (!current) return;
+    try { await navigator.clipboard.writeText(current.joke); } catch {}
+  }
+
+  async function shareJoke() {
+    if (!current) return;
+    const text = `${current.joke} — (Complexity ${current.complexity})`;
+    try {
+      if (navigator.share) { await navigator.share({ text, title: "Joke" }); }
+      else { await navigator.clipboard.writeText(text); }
+    } catch {}
+  }
 
   function renderFavs() {
     const favs = store.get('favs', []);
@@ -232,6 +224,18 @@ permalink: /jokes/
     });
   }
 
+  // --- events ----------------------------------------------------------------
+  dom.newBtn.onclick = pick;
+
+  dom.pills.forEach(btn => btn.onclick = () => {
+    dom.pills.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterLevel = btn.dataset.level;
+    pick();
+  });
+
+  dom.cat.onchange = pick;
+
   dom.addBtn.onclick = () => {
     const text = dom.myJoke.value.trim();
     const lvl = +dom.myLevel.value;
@@ -244,11 +248,12 @@ permalink: /jokes/
     toastConfetti();
   };
 
-  // keyboard shortcuts
+  // keyboard shortcuts (buttons removed, shortcuts stay)
   document.addEventListener('keydown', e => {
     if (e.code === 'Space'){ e.preventDefault(); pick(); }
-    if (e.key.toLowerCase() === 'f'){ dom.favBtn.click(); }
-    if (e.key.toLowerCase() === 'c'){ dom.copyBtn.click(); }
+    if (e.key.toLowerCase() === 'f'){ saveFavorite(); }
+    if (e.key.toLowerCase() === 'c'){ copyJoke(); }
+    if (e.key.toLowerCase() === 's'){ shareJoke(); }
   });
 
   // init
