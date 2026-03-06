@@ -7,12 +7,19 @@ permalink: /tri2-mcqreview
 categories: [CSP, Reflection]
 ---
 
-## Why I’m Writing This
+![Collegeboard MCQ Score]({{ site.baseurl }}/images/collegeboard-mcq-score.png)
 
-This blog is a reflection on several AP CSP multiple-choice questions I missed during a Trimester 2 review.  
-For each mistake, I’ve captured the question, what I answered, the correct answer, the root cause, and how I’ll avoid the same error next time.
+**Collegeboard MCQ Score**
 
----
+## Questions that I got wrong
+
+![Q9 – Transmit private data securely]({{ site.baseurl }}/images/tri2-mcq-q9.png)
+
+![Q49 & Q50 – Bit sequences and reasonable time]({{ site.baseurl }}/images/tri2-mcq-q49-q50.png)
+
+![Q52 – Bacteria population simulation]({{ site.baseurl }}/images/tri2-mcq-q52.png)
+
+![Q64 – Error with multiplication using repeated addition]({{ site.baseurl }}/images/tri2-mcq-q64.png)
 
 ## 1. Security vs Licensing (Q9)
 
@@ -93,7 +100,7 @@ But in AP CSP, “reasonable time” means **polynomial time**, not “fast in t
 All three are polynomial (or better), so all are considered to run in reasonable time.
 
 **Lesson learned**  
-I need a clear mental split:
+For questions like these, I need to memorize the Big O Chart to know which ones are reasonable and which ones are unreasonable
 
 - **Reasonable time (yes):** \(O(n)\), \(O(n^2)\), \(O(n^3)\), or any polynomial  
 - **Not reasonable (no):** \(O(2^n)\), \(O(n!)\), or exponential/factorial
@@ -121,7 +128,7 @@ The code’s final line displays:
 currentPop - startPop
 ```
 
-This is the **net change** in population over the entire simulation, not the **average change per hour**.
+This is the net change in population over the entire simulation, not the average change per hour.
 
 To show an average per hour, it would need to compute something like:
 
@@ -130,7 +137,7 @@ To show an average per hour, it would need to compute something like:
 ```
 
 There was no division by the number of hours, so statement II was false.  
-The code also did **not** display the final total population directly, so statement III was false as well.
+The code also did not display the final total population directly, so statement III was false as well.
 
 **Lesson learned**  
 When a question mentions an **“average per ___”**:
@@ -185,7 +192,7 @@ Which of the following best explains how a certificate authority is used in prot
 - **Correct answer:** D — A certificate authority verifies the authenticity of encryption keys used in secured communications.
 
 **What I didn’t fully understand**  
-Even though I chose the correct answer, I did not fully grasp **how** certificate authorities (CAs) protect data.
+Even though I chose the correct answer, I did not fully understand **how** certificate authorities (CAs) protect data.
 
 - CAs issue **digital certificates** that bind a public key to an organization or website.
 - When my browser connects over HTTPS, it checks the website’s certificate against trusted CAs to verify that the **public key really belongs to that site**.
